@@ -38,16 +38,3 @@ test('preserve original', function (t) {
     t.end();
 });
 
-test('compatible', function (t) {
-    t.plan(1);
-    function add(a, b, cb) {
-        setTimeout(function() {
-            cb(null, a + b);
-        }, 10);
-    };
-    var padd = promisify(add, { compatible: true });
-    padd(1, 2, function (err, res) {
-        t.equal(res, 3);
-    });
-});
-

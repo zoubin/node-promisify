@@ -22,16 +22,16 @@ module.exports = function (fn, opts) {
         args = arrayify(args);
         var ctx = this;
         if (opts.compatible && typeof args[args.length - 1] === 'function') {
-            return fn.apply(ctx, args);
+            var cb = args.pop();
         }
         return new $promise(function (resolve, reject) {
             fn.apply(ctx, args.concat(function (err, res) {
-                if (err) {
-                    return reject(err);
-                }
-                if (arguments.length < 3) {
-                    return resolve(res);
-                }
+                if (cb) cb(err, res);
+
+                if (err) return reject(err);
+
+                if (arguments.length < 3) return resolve(res);
+
                 resolve(arrayify(arguments, 1));
             }));
         });

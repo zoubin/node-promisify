@@ -29,20 +29,23 @@ promisify(function async(a, b, c, cb) {
 ## Example
 
 ```javascript
-var promisify = require('node-promisify');
-var glob = promisify(require('glob'));
+var promisify = require('..');
+var glob = promisify(require('glob'), { compatible: true });
+var path = require('path');
 
-glob('*.js', { cwd: './files' }).then(function (files) {
+// promisish style
+glob('*.js', { cwd: path.join(__dirname, 'files') }).then(function (files) {
     console.log('promisish:', files);
 });
 
-// original style
-glob('*.js', { cwd: './files' }, function (err, files) {
-    console.log('original:', files);
+// mixed style
+glob('*.js', { cwd: path.join(__dirname, 'files') }, function (err, files) {
+    console.log('mixed style: original', files);
+}).then(function (files) {
+    console.log('mixed style: promisish', files);
 });
 
-// other methods
-console.log('other methods:', glob.sync('*.js', { cwd: './files' }));
+console.log('other methods:', glob.sync('*.js', { cwd: path.join(__dirname, 'files') }));
 ```
 
 output:
