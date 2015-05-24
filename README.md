@@ -23,7 +23,6 @@ promisify(function async(a, b, c, cb) {
 * fn: *Function* the async function
 * opts: *Object*
 
-    * compatible: *Boolean* if `true`, `pfn` can also be used the same as `fn`
     * promise: *Function* Promise constructor to be used instead of the native.
 
 ## Example
