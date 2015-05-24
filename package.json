@@ -1,0 +1,31 @@
+{
+  "name": "node-promisify",
+  "version": "0.0.1",
+  "description": "convert function to promise",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js | faucet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zoubin/node-promisify.git"
+  },
+  "keywords": [
+    "promisify",
+    "node"
+  ],
+  "author": "zoubin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zoubin/node-promisify/issues"
+  },
+  "homepage": "https://github.com/zoubin/node-promisify#readme",
+  "dependencies": {
+    "util-mix": "^1.0.1"
+  },
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "glob": "^5.0.9",
+    "tape": "^4.0.0"
+  }
+}
