@@ -9,7 +9,7 @@ module.exports = function (fn, opts) {
 
     var promisified = eval(
         '(function ' + fn.name + '(){' +
-            'return (' + executable.toString() + ').call(this,arguments);' +
+            'return (' + exec.toString() + ').call(this,arguments);' +
         '})'
     );
 
@@ -18,16 +18,11 @@ module.exports = function (fn, opts) {
 
     return promisified;
 
-    function executable(args) {
-        args = arrayify(args);
+    function exec(args) {
         var ctx = this;
-        if (opts.compatible && typeof args[args.length - 1] === 'function') {
-            var cb = args.pop();
-        }
+        args = arrayify(args);
         return new $promise(function (resolve, reject) {
             fn.apply(ctx, args.concat(function (err, res) {
-                if (cb) cb(err, res);
-
                 if (err) return reject(err);
 
                 if (arguments.length < 3) return resolve(res);
