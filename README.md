@@ -8,7 +8,7 @@ Custom promise can be used instead of the native.
 
 ## Usage
 
-```javscript
+```javascript
 var promisify = require('node-promisify');
 promisify(function async(a, b, c, cb) {
     cb(null, d, e, f);
