@@ -51,8 +51,9 @@ console.log('other methods:', glob.sync('*.js', { cwd: path.join(__dirname, 'fil
 output:
 
 ```
-⌘ node glob.js
+⌘ node example/glob.js
 other methods: [ 'a.js', 'b.js', 'c.js' ]
-original: [ 'a.js', 'b.js', 'c.js' ]
+mixed style: original [ 'a.js', 'b.js', 'c.js' ]
 promisish: [ 'a.js', 'b.js', 'c.js' ]
+mixed style: promisish [ 'a.js', 'b.js', 'c.js' ]
 ```
