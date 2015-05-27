@@ -1,6 +1,6 @@
 {
   "name": "node-promisify",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "convert function to promise",
   "main": "index.js",
   "scripts": {
