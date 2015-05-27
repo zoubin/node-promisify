@@ -1,5 +1,5 @@
 # node-promisify
-Convert callback function to node native promise.
+Convert callback function to a new function which returns a promise.
 
 Function name and other own enumberable properties are preserved, as well as the execution context.
 
@@ -12,7 +12,7 @@ Custom promise can be used instead of the native.
 var promisify = require('node-promisify');
 promisify(function async(a, b, c, cb) {
     cb(null, d, e, f);
-}).then(function (results) {
+}, { argc: -1 }).then(function (results) {
     // results is [d, e, f]
 });
 
@@ -24,6 +24,7 @@ promisify(function async(a, b, c, cb) {
 * opts: *Object*
 
     * promise: *Function* Promise constructor to be used instead of the native.
+    * argc: *Number* The number of values should be delivered to the then callback, 1 by default. If `argc` is not 1, the callback will receive an array containing the exact number of resolved values. If specified as -1, all values are delivered.
 
 ## Example
 

@@ -1,7 +1,7 @@
 var test = require('tape');
 var promisify = require('..');
 
-test('promisify: single result', function (t) {
+test('promisify: single result as arguments', function (t) {
     t.plan(1);
     var add = function (a, b, cb) {
         setTimeout(function() {
@@ -14,14 +14,27 @@ test('promisify: single result', function (t) {
     });
 });
 
-test('promisify: multiple results', function (t) {
+test('promisify: all results as arguments', function (t) {
     t.plan(1);
     var add = function (a, b, cb) {
         setTimeout(function() {
             cb(null, a + b, a - b);
         }, 10);
     };
-    add = promisify(add);
+    add = promisify(add, { argc: -1 });
+    add(1, 2).then(function (res) {
+        t.same(res, [3, -1]);
+    });
+});
+
+test('promisify: multiple results as arguments', function (t) {
+    t.plan(1);
+    var add = function (a, b, cb) {
+        setTimeout(function() {
+            cb(null, a + b, a - b);
+        }, 10);
+    };
+    add = promisify(add, { argc: 2 });
     add(1, 2).then(function (res) {
         t.same(res, [3, -1]);
     });

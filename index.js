@@ -1,11 +1,17 @@
 var mix = require('util-mix').mix;
 
 module.exports = function (fn, opts) {
-    opts = opts || {};
     if (typeof opts === 'function') {
         opts = { promise: opts };
     }
-    var $promise = opts.promise || Promise;
+    opts = mix({
+        promise: Promise,
+        argc: 1
+    }, opts);
+
+    var $promise = opts.promise;
+    var argc = +opts.argc || 0;
+    var argEnd = argc < 0 ? undefined : argc + 1;
 
     var promisified = eval(
         '(function ' + fn.name + '(){' +
@@ -24,10 +30,10 @@ module.exports = function (fn, opts) {
         return new $promise(function (resolve, reject) {
             fn.apply(ctx, args.concat(function (err, res) {
                 if (err) return reject(err);
-
-                if (arguments.length < 3) return resolve(res);
-
-                resolve(arrayify(arguments, 1));
+                if (argc === 1) {
+                    return resolve(res);
+                }
+                resolve(arrayify(arguments, 1, argEnd));
             }));
         });
     };
