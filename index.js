@@ -1,4 +1,5 @@
 var mix = require('util-mix').mix;
+var arrayify = require('arrayify-slice');
 
 module.exports = function (fn, opts) {
     if (typeof opts === 'function') {
@@ -39,6 +40,3 @@ module.exports = function (fn, opts) {
     };
 };
 
-function arrayify(o, from, to) {
-    return Array.prototype.slice.call(o, from, to);
-}
