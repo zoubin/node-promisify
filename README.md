@@ -12,12 +12,14 @@ Custom promise can be used instead of the native.
 var promisify = require('node-promisify');
 promisify(function async(a, b, c, cb) {
     cb(null, d, e, f);
-}, { argc: -1 }).then(function (results) {
+}, -1).then(function (results) {
     // results is [d, e, f]
 });
 
 ```
 
+### pfn = promisify(fn, promise)
+### pfn = promisify(fn, argc)
 ### pfn = promisify(fn, opts)
 
 * fn: *Function* the async function

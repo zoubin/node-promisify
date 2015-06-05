@@ -21,7 +21,7 @@ test('promisify: all results as arguments', function (t) {
             cb(null, a + b, a - b);
         }, 10);
     };
-    add = promisify(add, { argc: -1 });
+    add = promisify(add, -1);
     add(1, 2).then(function (res) {
         t.same(res, [3, -1]);
     });
@@ -34,7 +34,7 @@ test('promisify: multiple results as arguments', function (t) {
             cb(null, a + b, a - b);
         }, 10);
     };
-    add = promisify(add, { argc: 2 });
+    add = promisify(add, 2);
     add(1, 2).then(function (res) {
         t.same(res, [3, -1]);
     });

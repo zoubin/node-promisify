@@ -5,6 +5,9 @@ module.exports = function (fn, opts) {
     if (typeof opts === 'function') {
         opts = { promise: opts };
     }
+    if (typeof opts === 'number') {
+        opts = { argc: opts };
+    }
     opts = mix({
         promise: Promise,
         argc: 1
