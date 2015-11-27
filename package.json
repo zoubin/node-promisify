@@ -1,10 +1,11 @@
 {
   "name": "node-promisify",
   "version": "0.2.2",
-  "description": "convert function to promise",
+  "description": "Convert a callback-based api to one that returns a promise",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/*.js | faucet"
+    "test": "npm run lint && task-tape test/*.js | tap-summary",
+    "lint": "eslint *.js lib/**/*.js test/*.js bin/*.js"
   },
   "repository": {
     "type": "git",
@@ -20,13 +21,11 @@
     "url": "https://github.com/zoubin/node-promisify/issues"
   },
   "homepage": "https://github.com/zoubin/node-promisify#readme",
-  "dependencies": {
-    "arrayify-slice": "^1.0.0",
-    "util-mix": "^1.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "faucet": "0.0.1",
-    "glob": "^5.0.9",
-    "tape": "^4.0.0"
+    "eslint": "^1.10.1",
+    "tap-summary": "^1.0.0",
+    "tape": "^4.0.0",
+    "task-tape": "^1.0.0"
   }
 }

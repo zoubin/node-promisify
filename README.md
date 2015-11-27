@@ -1,57 +1,89 @@
 # node-promisify
-Convert callback function to a new function which returns a promise.
+Convert a callback-based api to one that returns a promise.
 
-Function name and other own enumberable properties are preserved, as well as the execution context.
+[![version](https://img.shields.io/npm/v/node-promisify.svg)](https://www.npmjs.org/package/node-promisify)
+[![status](https://travis-ci.org/zoubin/node-promisify.svg?branch=master)](https://travis-ci.org/zoubin/node-promisify)
+[![devDependencies](https://david-dm.org/zoubin/node-promisify/dev-status.svg)](https://david-dm.org/zoubin/node-promisify#info=devDependencies)
 
-Custom promise can be used instead of the native.
+**NOTE**:
+* Own properties are preserved. But properties such as `name`, `length`, `toString`, do not inherit.
+* Custom promise can be used instead of the native. But no polyfill is applied when your node version does not support promise.
+* Multiple values can be resolved when the `argc` option is specified.
 
-
-## Usage
-
-```javascript
-var promisify = require('node-promisify');
-promisify(function async(a, b, c, cb) {
-    cb(null, d, e, f);
-}, -1).then(function (results) {
-    // results is [d, e, f]
-});
-
-```
-
-### pfn = promisify(fn, promise)
-### pfn = promisify(fn, argc)
-### pfn = promisify(fn, opts)
-
-* fn: *Function* the async function
-* opts: *Object*
-
-    * promise: *Function* Promise constructor to be used instead of the native.
-    * argc: *Number* The number of values should be delivered to the then callback, 1 by default. If `argc` is not 1, the callback will receive an array containing the exact number of resolved values. If specified as -1, all values are delivered.
 
 ## Example
 
 ```javascript
-var promisify = require('..');
-var glob = promisify(require('glob'));
-var path = require('path');
+var promisify = require('../')
 
-glob('*.js', { cwd: path.join(__dirname, 'files') })
-    .then(function (files) {
-        console.log('promisish style:', files);
-    });
+function async(a, b, c, d, cb) {
+  process.nextTick(function () {
+    cb(null, a + b, a + b + c, a + b + c + d)
+  })
+}
 
-glob('*.js', { cwd: path.join(__dirname, 'files') }, function (err, files) {
-    console.log('original style:', files);
-});
+async.sync = function (a, b) {
+  return a + b
+}
 
-console.log('other methods:', glob.sync('*.js', { cwd: path.join(__dirname, 'files') }));
+var promisified = promisify(async)
+
+console.log('Sync sum:', promisified.sync(1, 2))
+promisified(1, 2, 3, 4)
+  .then(function (sum) {
+    console.log('Async sum:', sum)
+  })
+
+promisify(async, 2)(1, 2, 3, 4)
+  .then(function (sums) {
+    console.log('Two sums:', sums)
+  })
+
+promisify(async, -1)(1, 2, 3, 4)
+  .then(function (sums) {
+    console.log('All sums:', sums)
+  })
+
 ```
 
 output:
 
 ```
-⌘ node example/glob.js
-other methods: [ 'a.js', 'b.js', 'c.js' ]
-original style: [ 'a.js', 'b.js', 'c.js' ]
-promisish style: [ 'a.js', 'b.js', 'c.js' ]
+⌘ node example/sums.js
+Sync sum: 3
+Async sum: 3
+Two sums: [ 3, 6 ]
+All sums: [ 3, 6, 10 ]
+
 ```
+
+## pfn = promisify(fn, opts)
+Return a new function which returns a promise.
+
+Sugar: `pfn = promisify(fn, argc)`, `pfn = promisify(fn, promise)`
+
+### fn
+The async function to be promisified.
+
+Type: `Function`
+
+Signature: `fn(arg1, arg2, ..., done)`
+
+### opts
+
+#### promise
+Specify a custom promise constructor.
+
+Type: `Function`
+
+#### argc
+Specify the number of values to be resolved.
+
+Type: `Number`
+
+Default: `null`
+
+When specified, the returned promise always resolve to an array.
+If not specified, only the first value is resolved.
+To resolve all possible values, specify a negative `argc`.
+
