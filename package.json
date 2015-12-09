@@ -4,8 +4,9 @@
   "description": "Convert a callback-based api to one that returns a promise",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && task-tape test/*.js | tap-summary",
-    "lint": "eslint *.js lib/**/*.js test/*.js bin/*.js"
+    "test": "npm run lint && tap --cov test/*.js",
+    "lint": "eslint *.js 'lib/**/*.js' test/*.js bin/*.js",
+    "coveralls": "COVERALLS_REPO_TOKEN=REPO_TOKEN npm test"
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,11 @@
     "url": "https://github.com/zoubin/node-promisify/issues"
   },
   "homepage": "https://github.com/zoubin/node-promisify#readme",
-  "dependencies": {},
+  "dependencies": {
+    "mixy": "^1.0.0"
+  },
   "devDependencies": {
     "eslint": "^1.10.1",
-    "tap-summary": "^1.0.0",
-    "tape": "^4.0.0",
-    "task-tape": "^1.0.0"
+    "tap": "^2.3.1"
   }
 }

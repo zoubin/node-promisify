@@ -1,12 +1,13 @@
 # node-promisify
-Convert a callback-based api to one that returns a promise.
-
 [![version](https://img.shields.io/npm/v/node-promisify.svg)](https://www.npmjs.org/package/node-promisify)
 [![status](https://travis-ci.org/zoubin/node-promisify.svg?branch=master)](https://travis-ci.org/zoubin/node-promisify)
+[![dependencies](https://david-dm.org/zoubin/node-promisify.svg)](https://david-dm.org/zoubin/node-promisify)
 [![devDependencies](https://david-dm.org/zoubin/node-promisify/dev-status.svg)](https://david-dm.org/zoubin/node-promisify#info=devDependencies)
 
+Convert a callback-based api to one that returns a promise.
+
 **NOTE**:
-* Own properties are preserved. But properties such as `name`, `length`, `toString`, do not inherit.
+* Own properties are preserved. `name`, `length` also preserved. But other inherited properties such as `toString`, do not preserve.
 * Custom promise can be used instead of the native. But no polyfill is applied when your node version does not support promise.
 * Multiple values can be resolved when the `argc` option is specified.
 

@@ -1,4 +1,4 @@
-var test = require('tape')
+var test = require('tap').test
 var promisify = require('..')
 
 test('preserve context', function (t) {
@@ -26,6 +26,8 @@ test('preserve property', function (t) {
     return a + b
   }
   var padd = promisify(add)
+  t.equal(padd.length, 3, 'fn.length')
+  t.equal(padd.name, 'add', 'fn.name')
   t.equal(padd.sync(1, 2), 3)
   t.end()
 })

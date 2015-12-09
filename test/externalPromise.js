@@ -1,5 +1,13 @@
-var test = require('tape')
+var test = require('tap').test
 var promisify = require('..')
+
+function $Promise() {}
+
+$Promise.prototype.then = function(cb) {
+  setTimeout(function() {
+    cb(1)
+  }, 10)
+}
 
 test('external promise', function (t) {
   t.plan(1)
@@ -14,10 +22,3 @@ test('external promise', function (t) {
   })
 })
 
-function $Promise() {}
-
-$Promise.prototype.then = function(cb) {
-  setTimeout(function() {
-    cb(1)
-  }, 10)
-}
