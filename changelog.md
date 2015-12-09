@@ -1,4 +1,10 @@
-<!-- 9c94916 1449679977000 -->
+<!-- 75174c3 1449680415000 -->
+
+## [v1.2.0](https://github.com/zoubin/node-promisify/commit/75174c3) (2015-12-09)
+
+* [[`fd320cf`](https://github.com/zoubin/node-promisify/commit/fd320cf)] Revert feature preserving fn.name and fn.length
+
+* [[`f23d146`](https://github.com/zoubin/node-promisify/commit/f23d146)] CHANGELOG
 
 ## [v1.1.0](https://github.com/zoubin/node-promisify/commit/9c94916) (2015-12-09)
 
