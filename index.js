@@ -15,25 +15,12 @@ module.exports = function (fn, opts) {
     argEnd = argc + 1
   }
 
-  var argStr = (new Array(fn.length))
-    .join(',').split(',')
-    .map(function (v, i) {
-      return 'arg' + i
-    }).join(',')
-
-  // Preserve `fn.name` and `fn.length`
-  var promisified = eval([
-    '(function', fn.name, '(', argStr, '){',
-    'return (', exec.toString(), ').call(this,arguments)',
-    '})',
-  ].join(' '))
-
   // Preserve properties (not including `fn.name`, `fn.length`)
   mix(promisified, fn)
 
-  function exec(args) {
+  function promisified() {
     var ctx = this
-    args = slice(args)
+    var args = slice(arguments)
     return new $promise(function (resolve, reject) {
       fn.apply(ctx, args.concat(function (err, res) {
         if (err) {

@@ -7,7 +7,7 @@
 Convert a callback-based api to one that returns a promise.
 
 **NOTE**:
-* Own properties are preserved. `name`, `length` also preserved. But other inherited properties such as `toString`, do not preserve.
+* Own properties are preserved. But other inherited properties such as `name`, `length`, `toString`, do not preserve.
 * Custom promise can be used instead of the native. But no polyfill is applied when your node version does not support promise.
 * Multiple values can be resolved when the `argc` option is specified.
 
