@@ -1,6 +1,6 @@
 {
   "name": "node-promisify",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Convert a callback-based api to one that returns a promise",
   "main": "index.js",
   "scripts": {
